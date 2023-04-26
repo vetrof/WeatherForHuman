@@ -26,21 +26,32 @@ def insert_weather_alerts(forecast_w):
         forecast_w['current']['wind_alert'] = 'red'
     elif current_wind > WIND_YELLOW:
         forecast_w['current']['wind_alert'] = 'orange'
+    else:
+        forecast_w['current']['wind_alert'] = 'none'
+
 
     if current_gust > GUST_RED:
         forecast_w['current']['gust_alert'] = 'red'
     elif current_gust > GUST_YELLOW:
         forecast_w['current']['gust_alert'] = 'orange'
+    else:
+        forecast_w['current']['gust_alert'] = 'none'
+
 
     if current_pressure > PRESSURE_HIGH_RED or current_pressure < PRESSURE_LOW_RED:
         forecast_w['current']['pressure_alert'] = 'red'
     elif current_pressure > PRESSURE_HIGH_YELLOW or current_pressure < PRESSURE_LOW_YELLOW:
         forecast_w['current']['pressure_alert'] = 'orange'
+    else:
+        forecast_w['current']['pressure_alert'] = 'none'
+
 
     if current_k_index > K_RED_ZONE:
         forecast_w['current']['k_index_alert'] = 'red'
     elif current_k_index > K_YELLOW_ZONE:
         forecast_w['current']['k_index_alert'] = 'orange'
+    else:
+        forecast_w['current']['k_index_alert'] = 'none'
 
     # insert forecast alerts
 
@@ -69,6 +80,10 @@ def insert_weather_alerts(forecast_w):
             elif wind_speed > WIND_YELLOW:
                 forecast_w['forecast']['forecastday'][day]['hour'][time][
                     'wind_alert'] = 'orange'
+            else:
+                forecast_w['forecast']['forecastday'][day]['hour'][time][
+                    'wind_alert'] = 'none'
+
 
             # wind speed alert
             if gust > GUST_RED:
@@ -77,6 +92,10 @@ def insert_weather_alerts(forecast_w):
             elif gust > GUST_YELLOW:
                 forecast_w['forecast']['forecastday'][day]['hour'][time][
                     'gust_alert'] = 'orange'
+            else:
+                forecast_w['forecast']['forecastday'][day]['hour'][time][
+                    'gust_alert'] = 'none'
+
 
             # pressure  alert
             if pressure > PRESSURE_HIGH_RED or pressure < PRESSURE_LOW_RED:
@@ -85,6 +104,9 @@ def insert_weather_alerts(forecast_w):
             elif pressure > PRESSURE_HIGH_YELLOW or pressure < PRESSURE_LOW_YELLOW:
                 forecast_w['forecast']['forecastday'][day]['hour'][time][
                     'pressure_alert'] = 'orange'
+            else:
+                forecast_w['forecast']['forecastday'][day]['hour'][time][
+                    'pressure_alert'] = 'none'
 
             # k index  alert
             if k_index > K_RED_ZONE:
@@ -93,6 +115,9 @@ def insert_weather_alerts(forecast_w):
             elif k_index > K_YELLOW_ZONE:
                 forecast_w['forecast']['forecastday'][day]['hour'][time][
                     'k_index_alert'] = 'orange'
+            else:
+                forecast_w['forecast']['forecastday'][day]['hour'][time][
+                    'k_index_alert'] = 'none'
 
             time += 1
 
