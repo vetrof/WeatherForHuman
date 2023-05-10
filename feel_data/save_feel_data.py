@@ -7,7 +7,6 @@ def save_feel(request, feel_num, feel_info='none'):
     last_user_requests = user_requests.last()
 
     user = request.user
-
     feel_num = feel_num
     feel_info = feel_info
 
