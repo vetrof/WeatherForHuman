@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- About Section -->
+<div class="w3-container" style="padding:128px 16px" id="about">
+  <h3 class="w3-center">Ваша история самочувствия</h3>
+{#  <p class="w3-center w3-large">Key features of our company</p>#}
+  <div class="w3-row-padding w3-center" style="margin-top:64px">
+
+
+{#    <div class="w3-quarter">#}
+    <div class="">
+      <i class="fa fa-history w3-margin-bottom w3-jumbo w3-center"></i>
+      <p class="w3-large">Данные в этот раздел, попадают когда вы заполняете форму под прогнозом.</p>
+
+
+        <table id="history">
+                              <tr>
+                                  <th>Город</th>
+                                  <th>&nbsp;Время&nbsp;&nbsp;&nbsp;</th>
+
+                                <th> Температура </th>
+                                <th> Ветер </th>
+                                <th> Порывы ветра </th>
+                                <th> Давление </th>
+                                <th> Магнитная буря </th>
+
+                                <th> Самочувствие </th>
+                                <th> Подробно </th>
+                              </tr>
+
+                        {% for history in object_list %}
+                              <tr>
+                                  <th>{{ history.location }}</th>
+                                  <th>{{ history.create_at }}</th>
+
+                                <th>{{ history.temp_c }}</th>
+                                <th>{{ history.wind }}</th>
+                                <th>{{ history.wind_gust }}</th>
+                                <th>{{ history.pressure_mm }}</th>
+                                <th>{{ history.k_index }}</th>
+
+
+                                  {% if history.feel_num == 0.0%}
+                                            <th>Плохо</th>
+                                  {% elif history.feel_num == 1.0%}
+                                            <th>Нормально</th>
+                                  {% elif history.feel_num == 2.0%}
+                                            <th>Хорошо</th>
+                                  {% endif %}
+
+
+                                <th>{{ history.feel_info }}</th>
+
+
+                              </tr>
+                        {% endfor %}
+                    </table>
+
+
+{#      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>#}
+    </div>
+
+
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
