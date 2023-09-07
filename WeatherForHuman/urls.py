@@ -13,6 +13,7 @@ from index_view.views import index_view, NewIndex
 from login.views import LoginUserView
 from my_feel_history.views import FeelHistoryView
 from registration.views import UserRegistrationView
+from stripetest.views import pay, charge
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +34,9 @@ urlpatterns = [
 
     # api
     path('api/<str:loc>', weather_api),
+
+    path('pay/', pay, name='pay_page'),
+    path('charge/', charge, name='charge'),
 
 ]
 

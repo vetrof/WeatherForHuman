@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'my_feel_history',
     'registration',
     'login',
+    'stripetest'
 ]
 
 MIDDLEWARE = [
@@ -158,8 +159,7 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
-
 DOMAIN_NAME = env('DOMAIN_NAME')
 
-
+STRIPE_TEST_PUBLISHABLE_KEY = env('STRIPE_TEST_PUBLISHABLE_KEY')
+STRIPE_TEST_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')

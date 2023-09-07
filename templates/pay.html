@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Orders page</h1>
+    <p>Test Buy</p>
+
+    <form action="{% url 'charge' %}" method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="data-amount" value="1000">
+
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="{{ stripe_key }}"
+            data-description="All Books"
+            data-amount="1000"
+            data-locale="auto">
+        </script>
+
+    </form>
+
+</body>
+</html>
