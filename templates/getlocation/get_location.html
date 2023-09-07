@@ -14,59 +14,62 @@
 
       <h3>В каком городе вы находитесь?</h3>
 
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
 
-            {% if messages %}
+<!-- Добавьте кнопку перед формой -->
 
-                            <ul class="messages">
-                            {% for message in messages %}
-                                     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                            {% endfor %}
-                            </ul>
-                    {% endif %}
-
-    {% if city == 'Unknown' %}
-<script>
-  navigator.geolocation.getCurrentPosition(function(position) {
-    // Получаем координаты
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-
-    // Отправляем запрос на обратное геокодирование
-    fetch('https://api.opencagedata.com/geocode/v1/json?q=' + latitude + '+' + longitude + '&key={{ OPEN_CA_DATA_KEY }}')
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        // Получаем название города из ответа API
-        var city = data.results[0].components.city;
-
-        // Получаем элемент input с id="loc" из формы
-        var locationInput = document.getElementById("loc");
-
-        // Устанавливаем значение input на название города
-        locationInput.value = city;
-      })
-      .catch(function(error) {
-        console.error('Ошибка при обратном геокодировании: ', error);
-      });
-  });
-</script>
-    {% endif %}
 
 <form action="{% url 'check_location' %}" method="GET">
   <label for="loc"></label><br>
-  <input type="text" id="loc" name="loc" value="{{ city }}"><br><br>
-  <input type="submit" value="Submit">
+  <input type="text" id="loc" name="loc" value="{{ city }}">
+  <input type="submit" value="Прогноз">
 </form>
-
-
-
+    <br>
+<button id="getLocationButton">Определить ?</button>
 
     </div>
-
   </div>
 </div>
 
+ <script>
+  // Функция для определения координат и обновления значения input
+  function getLocation() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      // Получаем координаты
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      // Отправляем запрос на обратное геокодирование
+      fetch('https://api.opencagedata.com/geocode/v1/json?q=' + latitude + '+' + longitude + '&key={{ OPEN_CA_DATA_KEY }}')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          // Получаем название города из ответа API
+          var city = data.results[0].components.city;
+
+          // Получаем элемент input с id="loc" из формы
+          var locationInput = document.getElementById("loc");
+
+          // Устанавливаем значение input на название города
+          locationInput.value = city;
+        })
+        .catch(function(error) {
+          console.error('Ошибка при обратном геокодировании: ', error);
+        });
+    });
+  }
+
+  // Добавляем обработчик события для кнопки
+  var getLocationButton = document.getElementById("getLocationButton");
+  getLocationButton.addEventListener("click", getLocation);
+</script>
 
 {% endblock %}
 
